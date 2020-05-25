@@ -5,7 +5,21 @@ import numpy as np
 import pandas as pd
 from pandas.plotting import register_matplotlib_converters
 from twopiece.scale import tpnorm
+
 register_matplotlib_converters()
+import pkg_resources
+
+
+def load_boe_parameters():
+    parameters = pkg_resources.resource_stream(__name__, 'data/fan_parameters.csv')
+    return pd.read_csv(parameters)
+
+
+def load_boe_history():
+    history = pkg_resources.resource_stream(__name__, 'data/fan_history.csv')
+
+    return pd.read_csv(history)
+
 
 def get_alphas(p):
     n = len(p)
@@ -76,7 +90,6 @@ def fanboe_single(p, loc, sigma, gamma, kind='pdf'):
 
 
 def fanboe(data, p, historic=None):
-
     marker = ''
     color = 'xkcd:tomato red'
     data['Date'] = pd.to_datetime(data['Date'])
