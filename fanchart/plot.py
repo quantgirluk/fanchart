@@ -5,12 +5,7 @@ import numpy as np
 import pandas as pd
 from pandas.plotting import register_matplotlib_converters
 from twopiece.scale import tpnorm
-
 register_matplotlib_converters()
-
-BOE_PAR = pd.read_csv('data/fan_parameters.csv')
-HISTORY = pd.read_csv('data/fan_history.csv')
-
 
 def get_alphas(p):
     n = len(p)

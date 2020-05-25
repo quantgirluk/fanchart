@@ -1,4 +1,8 @@
-from plot import *
+from fanchart.plot import *
+
+BOE_PAR = pd.read_csv('fan_parameters.csv')
+HISTORY = pd.read_csv('fan_history.csv')
+
 
 parameters = BOE_PAR.copy()
 history =HISTORY.copy()
@@ -14,3 +18,5 @@ probs2 = np.arange(0.10, 1, 0.05)
 fanboe(data=parameters, p=probs2, historic=history[history.Date >= '2015'].iloc[::3, ])
 fanboe_single(loc=1.51, sigma=1.34, gamma=0.0, p=probs2, kind='pdf')
 fanboe_single(loc=1.51, sigma=1.34, gamma=0.0, p=probs2, kind='cdf')
+
+
