@@ -35,7 +35,8 @@ def get_alphas(p):
     return alpha
 
 
-def fanboe_single(p, loc, sigma, gamma, kind='pdf'):
+def fan_single(p, loc, sigma, gamma, kind='pdf', color = 'xkcd:tomato red'):
+
     dist = tpnorm(loc=loc, sigma=sigma, gamma=gamma, kind='boe')
     q = dist.ppf(p)
     x = np.linspace(loc - 4 * sigma, loc + 4 * sigma, 500)
@@ -49,7 +50,8 @@ def fanboe_single(p, loc, sigma, gamma, kind='pdf'):
     ax.yaxis.tick_right()
     ax.yaxis.set_ticks_position('both')
     ax.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
-    color = 'xkcd:tomato red'
+
+
 
     if kind == 'pdf':
         y = dist.pdf(x)
@@ -89,9 +91,9 @@ def fanboe_single(p, loc, sigma, gamma, kind='pdf'):
     return fig
 
 
-def fanboe(data, p, historic=None):
+def fan(data, p, historic=None, color = 'xkcd:tomato red'):
+
     marker = ''
-    color = 'xkcd:tomato red'
     data['Date'] = pd.to_datetime(data['Date'])
     data = data.reset_index()
 
