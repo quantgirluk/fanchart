@@ -5,9 +5,9 @@ import numpy as np
 import pandas as pd
 from pandas.plotting import register_matplotlib_converters
 from twopiece.scale import tpnorm
+import pkg_resources
 
 register_matplotlib_converters()
-import pkg_resources
 
 
 def load_boe_parameters():
@@ -35,15 +35,19 @@ def get_alphas(p):
     return alpha
 
 
-def fan_single(p, loc, sigma, gamma, kind='pdf', color = 'xkcd:tomato red'):
-
+def fan_single(p, loc, sigma, gamma, kind='pdf', color='xkcd:tomato red', grid=False, figsize=None):
     dist = tpnorm(loc=loc, sigma=sigma, gamma=gamma, kind='boe')
     q = dist.ppf(p)
     x = np.linspace(loc - 4 * sigma, loc + 4 * sigma, 500)
 
-    fig = plt.figure(figsize=(9, 6))
+    if figsize:
+        fig_size =figsize
+    else:
+        fig_size=(9,6)
+
+    fig = plt.figure(figsize=fig_size)
     ax = fig.add_subplot(111)
-    ax.grid(False)
+    ax.grid(grid)
 
     ax.xaxis.set_ticks_position('bottom')
     ax.xaxis.set_major_locator(ticker.MultipleLocator(1))
@@ -51,25 +55,26 @@ def fan_single(p, loc, sigma, gamma, kind='pdf', color = 'xkcd:tomato red'):
     ax.yaxis.set_ticks_position('both')
     ax.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
 
-
-
     if kind == 'pdf':
         y = dist.pdf(x)
         ax.plot(x, y, color=color)
         title = 'Probability Density'
         ax.yaxis.set_minor_locator(ticker.MultipleLocator(0.05))
-        y_value = ['{:,.2f}'.format(y) for y in ax.get_yticks()]
+        y_values = ax.get_yticks()
+        y_labs = ['{:,.2f}'.format(y) for y in y_values]
 
     elif kind == 'cdf':
         y = dist.cdf(x)
         ax.plot(x, y, color=color)
         title = 'Cumulative Probability - Percent'
-        y_value = ['{:,.0f}'.format(y * 100) for y in ax.get_yticks()]
+        y_values = ax.get_yticks()
+        y_labs = ['{:,.0f}'.format(y * 100) for y in y_values]
 
     else:
         raise ValueError("kind must be either pdf or cdf")
 
-    ax.set_yticklabels(y_value)
+    ax.set_yticks(y_values)
+    ax.set_yticklabels(y_labs)
     ax.set_title(title, loc='right')
 
     alpha_fill = get_alphas(p)
@@ -91,13 +96,20 @@ def fan_single(p, loc, sigma, gamma, kind='pdf', color = 'xkcd:tomato red'):
     return fig
 
 
-def fan(data, p, historic=None, color = 'xkcd:tomato red'):
-
+def fan(data, p, historic=None, color='xkcd:tomato red', grid=False, figsize=None):
     marker = ''
     data['Date'] = pd.to_datetime(data['Date'])
     data = data.reset_index()
 
-    fig = plt.figure(figsize=(8, 6))
+    max_historical_value = 0
+    min_historical_value = 0
+
+    if figsize:
+        fig_size = figsize
+    else:
+        fig_size = (8, 6)
+
+    fig = plt.figure(figsize=fig_size)
     ax = fig.add_subplot(111)
     ax.set_title('Percentage increase in prices on a year earlier', loc='right')
     ax.xaxis.set_ticks_position('bottom')
@@ -105,7 +117,7 @@ def fan(data, p, historic=None, color = 'xkcd:tomato red'):
     ax.xaxis.set_minor_locator(mdates.MonthLocator((1, 4, 7, 10)))
     ax.yaxis.tick_right()
     ax.yaxis.set_ticks_position('both')
-    ax.grid(False)
+    ax.grid(grid)
 
     results = np.zeros((data.shape[0], len(p)))
     for index, _ in enumerate(results):
@@ -119,8 +131,13 @@ def fan(data, p, historic=None, color = 'xkcd:tomato red'):
     if historic is not None:
         hist = historic.copy()
         hist['Date'] = pd.to_datetime(hist['Date'])
+
+        min_historical_value = min(hist['Inflation'])
+        max_historical_value = max(hist['Inflation'])
+
         anchor_date = hist.iloc[-1]['Date']
         anchor_value = hist.iloc[-1]['Inflation']
+
         results.loc[anchor_date] = np.repeat(anchor_value, results.shape[1])
         max_date = data['Date'].loc[data.shape[0] - 1]
         plt.axvspan(anchor_date, max_date, color='gray', alpha=0.05)
@@ -136,7 +153,10 @@ def fan(data, p, historic=None, color = 'xkcd:tomato red'):
                              alpha=alpha_fill[index], facecolor=color, edgecolor="none", linewidth=0.0)
 
     ax.axhline(y=2, color='black', linestyle='-', linewidth=0.75)
-    ax.set_ylim([-2, 6])
+
+    min_inflation = min(min_historical_value, results.to_numpy().min())
+    max_inflation = max(max_historical_value, results.to_numpy().max())
+    ax.set_ylim([min_inflation - 1., max_inflation + 1.])
     plt.show()
 
     assert isinstance(fig, object)
