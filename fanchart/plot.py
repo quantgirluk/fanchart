@@ -11,12 +11,12 @@ register_matplotlib_converters()
 
 
 def load_boe_parameters():
-    parameters = pkg_resources.resource_stream(__name__, 'data/fan_parameters.csv')
+    parameters = pkg_resources.resource_stream(__name__, 'data/fan_parameters_2022Q1.csv')
     return pd.read_csv(parameters)
 
 
 def load_boe_history():
-    history = pkg_resources.resource_stream(__name__, 'data/fan_history.csv')
+    history = pkg_resources.resource_stream(__name__, 'data/fan_history_2022Q1.csv')
 
     return pd.read_csv(history)
 
@@ -41,9 +41,9 @@ def fan_single(p, loc, sigma, gamma, kind='pdf', color='xkcd:tomato red', grid=F
     x = np.linspace(loc - 4 * sigma, loc + 4 * sigma, 500)
 
     if figsize:
-        fig_size =figsize
+        fig_size = figsize
     else:
-        fig_size=(9,6)
+        fig_size = (9, 6)
 
     fig = plt.figure(figsize=fig_size)
     ax = fig.add_subplot(111)
@@ -96,7 +96,7 @@ def fan_single(p, loc, sigma, gamma, kind='pdf', color='xkcd:tomato red', grid=F
     return fig
 
 
-def fan(data, p, historic=None, color='xkcd:tomato red', grid=False, figsize=None):
+def fan(data, p, historic=None, color='xkcd:tomato red', grid=False, figsize=None, title=None, title_loc=None):
     marker = ''
     data['Date'] = pd.to_datetime(data['Date'])
     data = data.reset_index()
@@ -111,7 +111,17 @@ def fan(data, p, historic=None, color='xkcd:tomato red', grid=False, figsize=Non
 
     fig = plt.figure(figsize=fig_size)
     ax = fig.add_subplot(111)
-    ax.set_title('Percentage increase in prices on a year earlier', loc='right')
+
+    if title:
+        fig_title = title
+    else:
+        fig_title = 'CPI Inflation projection'
+
+    if title_loc:
+        ax.set_title(fig_title, loc=title_loc)
+    else:
+        ax.set_title(fig_title, loc='left')
+
     ax.xaxis.set_ticks_position('bottom')
     ax.xaxis.set_major_locator(mdates.YearLocator())
     ax.xaxis.set_minor_locator(mdates.MonthLocator((1, 4, 7, 10)))
@@ -120,12 +130,14 @@ def fan(data, p, historic=None, color='xkcd:tomato red', grid=False, figsize=Non
     ax.grid(grid)
 
     results = np.zeros((data.shape[0], len(p)))
+
     for index, _ in enumerate(results):
         mode = data['Mode'][index]
         sigma = data['Uncertainty'][index]
         gamma = data['Skewness'][index]
         dist = tpnorm(loc=mode, sigma=sigma, gamma=gamma, kind='boe')
         results[index] = dist.ppf(p)
+
     results = pd.DataFrame(results, columns=p, index=data['Date'])
 
     if historic is not None:
@@ -140,14 +152,14 @@ def fan(data, p, historic=None, color='xkcd:tomato red', grid=False, figsize=Non
 
         results.loc[anchor_date] = np.repeat(anchor_value, results.shape[1])
         max_date = data['Date'].loc[data.shape[0] - 1]
-        plt.axvspan(anchor_date, max_date, color='gray', alpha=0.05)
+        plt.axvspan(anchor_date, max_date, color='gray', alpha=0.2)
         plt.plot(hist['Date'], hist['Inflation'], color=color, marker=marker, linewidth=2.0)
 
     results = results.sort_index()
+
     alpha_fill = get_alphas(p)
 
     for index, column in enumerate(results.columns):
-
         if index < results.shape[1] - 1:
             plt.fill_between(results.index, results.iloc[:, index], results.iloc[:, index + 1],
                              alpha=alpha_fill[index], facecolor=color, edgecolor="none", linewidth=0.0)

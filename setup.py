@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="fanchart",
-    version="0.1.0",
+    version="0.1.1",
     author="Dialid Santiago ",
     author_email="d.santiago@outlook.com",
     description="Fan Chart Implementation",
