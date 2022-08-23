@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="fanchart",
-    version="0.1.1",
+    version="1.0.0",
     author="Dialid Santiago ",
     author_email="d.santiago@outlook.com",
     description="Fan Chart Implementation",
@@ -21,5 +21,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
-    install_requires=['twopiece>=1.2.0','numpy>=1.13.1', 'scipy>=0.19.1', 'matplotlib>=2.2.2', 'seaborn>=0.8'],
+    install_requires=['twopiece>=1.3.1', 'numpy>=1.13.1', 'scipy>=0.19.1', 'matplotlib>=2.2.2', 'seaborn>=0.8'],
 )
