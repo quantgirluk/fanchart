@@ -1,4 +1,10 @@
-# Fan Charts
+# *fanchart*: Fan Charts Implementation
+
+
+[![PyPI version fury.io](https://badge.fury.io/py/fanchart.svg)](https://pypi.python.org/pypi/fanchart/)
+
+![PyPI license](https://img.shields.io/pypi/l/fanchart.svg)
+
 
 Fan charts [Python](https://www.python.org/) implementation.
 
