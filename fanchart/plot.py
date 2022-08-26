@@ -267,15 +267,3 @@ def fan_dark(pars, probs, historic=None, color='orange', title=None):
     """
     return _fan_customised(pars, probs, historic=historic, color=color, grid=True, title=title, title_loc=None,
                            darkmode=True)
-
-hist = pd.read_csv('data/fan_history_2022Q3.csv')
-par = pd.read_csv('data/fan_parameters_2022Q3.csv')
-
-
-probs = np.arange(0.05, 1, 0.05)
-fan_single_dark(loc=10.79, sigma=1.55, gamma=1.08, probs=probs).savefig('single_dark')
-fan_single(loc=10.79, sigma=1.55, gamma=1.08, probs=probs).savefig('single_light')
-fan_single(loc=10.79, sigma=1.55, gamma=1.08, probs=probs, kind='cdf').savefig('single_light_cdf')
-
-fan_dark(pars=par, probs=probs, historic=hist.iloc[56:]).savefig('fan_dark')
-fan(pars=par, probs=probs, historic=hist.iloc[56:]).savefig('fan_light')
