@@ -64,14 +64,18 @@ def _color_setup(darkmode):
             "savefig.edgecolor": DARK_BG})
 
 
-def _fan_single_customised(p, loc, sigma, gamma, kind='pdf', color='xkcd:tomato red', grid=False, figsize=(12, 6),
+def _fan_single_customised(p, loc, sigma, gamma, kind='pdf', color='xkcd:tomato red', grid=False, fig_size=None,
                            darkmode=False):
     dist = tpnorm(loc=loc, sigma=sigma, gamma=gamma, kind='boe')
     q = dist.ppf(p)
     x = np.linspace(loc - 4 * sigma, loc + 4 * sigma, 500)
 
     _color_setup(darkmode)
-    fig = plt.figure(figsize=figsize)
+    if fig_size:
+        fs = fig_size
+    else:
+        fs = plt.rcParamsDefault['figure.figsize']
+    fig = plt.figure(figsize=fs)
     ax = fig.add_subplot(111)
     ax.spines[['top', 'right', 'left']].set_visible(False)
     ax.xaxis.set_ticks_position('bottom')
@@ -98,10 +102,11 @@ def _fan_single_customised(p, loc, sigma, gamma, kind='pdf', color='xkcd:tomato 
 
     ax.set_yticks(y_values)
     ax.set_yticklabels(y_labs)
-    ax.set_title(title, loc='right', fontdict={'fontsize': 12, 'fontweight': 'medium'})
+    ax.set_title(title, loc='right', fontdict={'fontsize': 10, 'fontweight': 'medium'})
 
     if grid:
-        ax.grid(axis='y')
+        ax.grid(axis='y', alpha=0.25)
+        ax.set_axisbelow(True)
 
     alpha_fill = _get_alphas(p)
     for i in np.arange(0, len(q) - 1):
@@ -147,7 +152,7 @@ def fan_single_dark(loc, sigma, gamma, probs, kind='pdf', color='orange'):
     return _fan_single_customised(probs, loc, sigma, gamma, kind=kind, grid=True, color=color, darkmode=True)
 
 
-def _fan_customised(data, p, historic=None, color='cornflowerblue', grid=False, figsize=(12, 6), title=None,
+def _fan_customised(data, p, historic=None, color='cornflowerblue', grid=False, fig_size=None, title=None,
                     title_loc=None,
                     darkmode=False):
     dat = data.copy()
@@ -157,13 +162,17 @@ def _fan_customised(data, p, historic=None, color='cornflowerblue', grid=False, 
     min_historical_value = 0
 
     _color_setup(darkmode)
-    fig = plt.figure(figsize=figsize)
+    if fig_size:
+        fs = fig_size
+    else:
+        fs = (12, 6)
+    fig = plt.figure(figsize=fs)
     ax = fig.add_subplot(111)
     ax.spines[['top', 'right', 'left']].set_visible(False)
     if title:
         fig_title = title
     else:
-        fig_title = 'CPI Inflation projection'
+        fig_title = 'CPI Inflation Projection'
     if title_loc:
         ax.set_title(fig_title, loc=title_loc, fontdict={'fontsize': 12, 'fontweight': 'medium'})
     else:
@@ -174,7 +183,8 @@ def _fan_customised(data, p, historic=None, color='cornflowerblue', grid=False, 
     ax.xaxis.set_minor_locator(mdates.MonthLocator((1, 4, 7, 10)))
 
     if grid:
-        ax.grid(axis='y')
+        ax.grid(axis='y', alpha=0.25)
+        ax.set_axisbelow(True)
 
     results = np.zeros((dat.shape[0], len(p)))
     for index, _ in enumerate(results):
@@ -185,7 +195,7 @@ def _fan_customised(data, p, historic=None, color='cornflowerblue', grid=False, 
         results[index] = dist.ppf(p)
     results = pd.DataFrame(results, columns=p, index=dat['Date'])
 
-    if not historic.empty:
+    if historic is not None:
         hist = historic.copy()
         hist['Date'] = pd.to_datetime(hist['Date'])
         min_historical_value = min(hist['Inflation'])
@@ -195,9 +205,9 @@ def _fan_customised(data, p, historic=None, color='cornflowerblue', grid=False, 
         results.loc[anchor_date] = np.repeat(anchor_value, results.shape[1])
         max_date = dat['Date'].loc[dat.shape[0] - 1]
         if darkmode:
-            plt.axvspan(anchor_date, max_date, color='white', alpha=0.4)
+            ax.axvspan(anchor_date, max_date, color='white', alpha=0.4, label='Projection')
         else:
-            plt.axvspan(anchor_date, max_date, color='gray', alpha=0.2)
+            ax.axvspan(anchor_date, max_date, color='gray', alpha=0.2, label='Projection')
         plt.plot(hist['Date'], hist['Inflation'], color=color, marker='', linewidth=2.0)
 
     results = results.sort_index()
@@ -218,6 +228,7 @@ def _fan_customised(data, p, historic=None, color='cornflowerblue', grid=False, 
     ax.yaxis.tick_left()
     ax.set_yticks([t for t in range(round(min_inflation) - 2, round(max_inflation) + 2) if t % 2 == 0])
     ax.set_ylim([round(min_inflation) - 2., round(max_inflation) + 2.])
+    ax.legend(loc='lower left', frameon=False)
 
     ax1 = ax.twinx()
     ax1.set_yticks(ax.get_yticks())
@@ -230,27 +241,41 @@ def _fan_customised(data, p, historic=None, color='cornflowerblue', grid=False, 
     return fig
 
 
-def fan(pars, probs, historic=None, color='xkcd:tomato red'):
+def fan(pars, probs, historic=None, color='xkcd:tomato red', title=None):
     """
     Returns a fanchart
-    :param pars: Parameters table with columns Mode, Uncertainty, Skewness
-    :param probs: Probabilities to make the fan chart
-    :param historic: Historical/observed values table with columns Date, Inflation
-    :param color: A color for the chart
+    :param pars: dataframe - Parameters table with columns Mode, Uncertainty, Skewness
+    :param probs: list- Probabilities to make the fan chart
+    :param historic: dataframe - Historical/observed values table with columns Date, Inflation
+    :param color: string - color for the chart
+    :param title: string - title for the chart
     :return: fanchart (figure)
     """
-    return _fan_customised(pars, probs, historic=historic, color=color, grid=True, title=None, title_loc=None,
+    return _fan_customised(pars, probs, historic=historic, color=color, grid=True, title=title, title_loc=None,
                            darkmode=False)
 
 
-def fan_dark(pars, probs, historic=None, color='orange'):
+def fan_dark(pars, probs, historic=None, color='orange', title=None):
     """
     Returns a fanchart in dark mode
-    :param pars: parameters table with columns Mode, Uncertainty, Skewness
-    :param probs: probabilities to make the fan chart
-    :param historic: historical/observed values table with columns Date, Inflation
-    :param color: a color for the chart
+    :param pars: dataframe - Parameters table with columns Mode, Uncertainty, Skewness
+    :param probs: list- Probabilities to make the fan chart
+    :param historic: dataframe - Historical/observed values table with columns Date, Inflation
+    :param color: string - color for the chart
+    :param title: string - title for the chart
     :return: fanchart (figure)
     """
-    return _fan_customised(pars, probs, historic=historic, color=color, grid=True, title=None, title_loc=None,
+    return _fan_customised(pars, probs, historic=historic, color=color, grid=True, title=title, title_loc=None,
                            darkmode=True)
+
+hist = pd.read_csv('data/fan_history_2022Q3.csv')
+par = pd.read_csv('data/fan_parameters_2022Q3.csv')
+
+
+probs = np.arange(0.05, 1, 0.05)
+fan_single_dark(loc=10.79, sigma=1.55, gamma=1.08, probs=probs).savefig('single_dark')
+fan_single(loc=10.79, sigma=1.55, gamma=1.08, probs=probs).savefig('single_light')
+fan_single(loc=10.79, sigma=1.55, gamma=1.08, probs=probs, kind='cdf').savefig('single_light_cdf')
+
+fan_dark(pars=par, probs=probs, historic=hist.iloc[56:]).savefig('fan_dark')
+fan(pars=par, probs=probs, historic=hist.iloc[56:]).savefig('fan_light')
