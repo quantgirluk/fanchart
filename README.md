@@ -38,3 +38,15 @@ This library provides two main functions
 ![](https://raw.githubusercontent.com/quantgirluk/fanchart/master/images/single_light.png)
 
 ![](https://raw.githubusercontent.com/quantgirluk/fanchart/master/images/single_light_cdf.png)
+
+## Thanks for Visiting! ✨
+
+Connect with me via:
+
+- 🦜 [Twitter](https://twitter.com/Quant_Girl)
+- 👩🏽‍💼 [Linkedin](https://www.linkedin.com/in/dialidsantiago/)
+- 📸 [Instagram](https://www.instagram.com/quant_girl/)
+- 👾 [Personal Website](https://quantgirl.blog)
+
+
+⭐️ **If you like this projet, please give it a star!** ⭐️
