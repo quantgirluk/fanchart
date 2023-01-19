@@ -1,16 +1,19 @@
-# *fanchart*: Fan Charts Implementation
+# *fanchart* 
 
 
 [![PyPI version fury.io](https://badge.fury.io/py/fanchart.svg)](https://pypi.python.org/pypi/fanchart/)
-
 ![PyPI license](https://img.shields.io/pypi/l/fanchart.svg)
 
+- [Git Homepage](https://github.com/quantgirluk/fanchart)
+- [Pip Repository](https://pypi.org/project/fanchart/)
 
-Fan charts [Python](https://www.python.org/) implementation.
+## Overview
+
+The **_fanchart_** library provides functionality to create fan charts in [Python](https://www.python.org/).
 
 
-The term **fan chart** was coined by the [Bank of England](https://www.bankofengland.co.uk/), which has been
-using these charts to illustrate its forecasts for inflation since 1996.
+The term **fan chart** was coined by the [Bank of England](https://www.bankofengland.co.uk/) in 1996. Since then, the  BoE 
+has used these charts to illustrate its forecasts for inflation.
 
 The BoE introduced the fan charts aiming to communicate a more accurate representation of their forecast for medium term inflation. In particular, the charts have two key objectives:
 
@@ -19,6 +22,7 @@ The BoE introduced the fan charts aiming to communicate a more accurate represen
 
 For more details on the history of fan charts visit [Fan Charts](https://quantgirl.blog/fan-charts/)
 
+## Quick Start
 This library provides two main functions
 
 | Function    | Parameters                            |
