@@ -9,7 +9,7 @@ authors = [{ name = "Dialid Santiago", email = "d.santiago@outlook.com" }, ]
 description = "Library to create Fan Charts as introduced by the Bank of England in 1996."
 readme = "README.md"
 requires-python = ">=3.8,<3.11"
-dependencies = ["pandas>=1.5.2",
+dependencies = ["pandas>=1.5.3",
                 "numpy>=1.23.5",
                 "scipy>=1.9.3",
                 "matplotlib>=3.6.2",
