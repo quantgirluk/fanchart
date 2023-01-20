@@ -223,8 +223,8 @@ def _fan_customised(data, p, historic=None, color='cornflowerblue', grid=False, 
     else:
         ax.axhline(y=2.0, color='black', linestyle='--', linewidth=1.5)
 
-    min_inflation = min(min_historical_value, np.mi(results.to_numpy()))
-    max_inflation = max(max_historical_value, np.min(results.to_numpy()))
+    min_inflation = min(min_historical_value, np.min(results.to_numpy()))
+    max_inflation = max(max_historical_value, np.max(results.to_numpy()))
     ax.yaxis.tick_left()
     ax.set_yticks([t for t in range(round(min_inflation) - 2, round(max_inflation) + 2) if t % 2 == 0])
     ax.set_ylim([round(min_inflation) - 2., round(max_inflation) + 2.])
