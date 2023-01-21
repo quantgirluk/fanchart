@@ -27,14 +27,14 @@ This library provides two main functions
 
 - The `fan` function illustrates the distribution of all the forecasts available; and it has the option to display the historical values for reference.
 
-![](https://raw.githubusercontent.com/quantgirluk/fanchart/master/images/fan_light.png)
+![](https://raw.githubusercontent.com/quantgirluk/fanchart/master/docs/source/_static/fan01.png)
 
 
 - The `fan_single` function illustrates the pdf/cdf of one forecast distribution
 
-![](https://raw.githubusercontent.com/quantgirluk/fanchart/master/images/single_light.png)
+![](https://raw.githubusercontent.com/quantgirluk/fanchart/master/docs/source/_static/fan04.png)
 
-![](https://raw.githubusercontent.com/quantgirluk/fanchart/master/images/single_light_cdf.png)
+![](https://raw.githubusercontent.com/quantgirluk/fanchart/master/docs/source/_static/fan05.png)
 
 ## Thanks for Visiting! ✨
 
