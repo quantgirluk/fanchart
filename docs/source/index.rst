@@ -66,11 +66,12 @@ Documentation
 -------------
 
 .. toctree::
+   :caption: Table of Contents
    quick_start.rst
+
 
 
 Indices and tables
 ==================
 
-* :ref:`genindex`
 * :ref:`search`
