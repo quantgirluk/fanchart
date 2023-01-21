@@ -1,9 +1,14 @@
 # *fanchart* 
 
-
 [![PyPI version fury.io](https://badge.fury.io/py/fanchart.svg)](https://pypi.python.org/pypi/fanchart/)
-![PyPI license](https://img.shields.io/pypi/l/fanchart.svg)
+[![Downloads](https://static.pepy.tech/personalized-badge/fanchart?period=total&units=international_system&left_color=black&right_color=blue&left_text=Downloads)](https://pepy.tech/project/fanchart)
 
+![PyPI license](https://img.shields.io/pypi/l/fanchart.svg)
+![example workflow](https://github.com/quantgirluk/fanchart/actions/workflows/python-package.yml/badge.svg)
+[![Documentation Status](https://readthedocs.org/projects/fanchart/badge/?version=latest)](https://fanchart.readthedocs.io/en/latest/?badge=latest)
+
+
+- [Documentation](https://fanchart.readthedocs.io/en/latest/)
 - [Git Homepage](https://github.com/quantgirluk/fanchart)
 - [Pip Repository](https://pypi.org/project/fanchart/)
 
