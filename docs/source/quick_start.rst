@@ -67,9 +67,9 @@ Single Quarter Fan Charts
 The fanchart package also provides functionality to visualise each of the quarterly forecast on its own.
 This is achieved by the function `fan_single` which requires the following parameters:
 
-- loc   : Locantion parameter (Mode)
+- loc   : Location parameter (Mode)
 - sigma : Uncertainty parameter
-- gamma : Skewness parametere
+- gamma : Skewness parameter
 - probs : A set of probabilities
 - kind  : A string either 'pdf' or 'cdf' to define the type of plot
 
