@@ -1,7 +1,9 @@
 Quick-Start Guide
 =================
 
-This guide explains how to use the library `fanchart` to create charts as those included in the Monetary Policy Report produced by tge Bank of England (BoE).
+This guide explains how to use the library ``fanchart`` to create charts as those included in the
+`Monetary Policy Report <https://www.bankofengland.co.uk/monetary-policy-report/2022/november-2022>`_
+produced by the `Bank of England <https://www.bankofengland.co.uk/>`_.
 
 Load Historical Data
 --------------------
