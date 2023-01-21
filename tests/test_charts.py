@@ -1,6 +1,5 @@
 from fanchart import load_boe_parameters, load_boe_history, fan, fan_single, fan_dark, fan_single_dark
 import numpy as np
-import pytest
 
 SAVE = False
 SAVE_PATH ='../docs/source/_static/'
