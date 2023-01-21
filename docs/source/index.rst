@@ -6,6 +6,23 @@
 fanchart
 ========
 
+|build| |rtd| |pypi| |downloads| |pyversions|
+
+.. |build| image:: https://github.com/quantgirluk/fanchart/actions/workflows/python-package.yml/badge.svg
+    :target: https://github.com/quantgirluk/fanchart/actions
+
+.. |rtd| image:: https://img.shields.io/readthedocs/fanchart.svg
+    :target: http://fanchart.readthedocs.io/en/latest/
+
+.. |pypi| image:: https://img.shields.io/pypi/v/fanchart.svg
+    :target: https://pypi.python.org/pypi/fanchart
+
+.. |downloads| image:: https://static.pepy.tech/personalized-badge/fanchart?period=total&units=international_system&left_color=black&right_color=blue&left_text=Downloads
+ :target: https://pepy.tech/project/fanchart
+
+.. |pyversions| image:: https://img.shields.io/pypi/pyversions/fanchart.svg
+    :target: https://pypi.python.org/pypi/fanchart
+
 
 
 The fanchart library provides functionality to create fan charts in Python.
