@@ -1,7 +1,8 @@
 from fanchart import load_boe_parameters, load_boe_history, fan, fan_single, fan_dark, fan_single_dark
 import numpy as np
+import pytest
 
-SAVE = True
+SAVE = False
 SAVE_PATH ='../docs/source/_static/'
 def test_plot_fan():
     parameters = load_boe_parameters()
@@ -52,4 +53,3 @@ def test_quick_start(save=SAVE):
     figure = fan_single_dark(loc=loc, sigma=sigma, gamma=gamma, probs=probs, kind='cdf')
     if save:
         figure.savefig(SAVE_PATH  + 'fan06.png', dpi=200)
-
