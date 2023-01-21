@@ -27,17 +27,16 @@ This library provides two main functions
 - The `fan` function illustrates the distribution of all the forecasts available; and it has the option to display the historical values for reference.
 
 
-.. image:: https://raw.githubusercontent.com/quantgirluk/fanchart/master/images/fan_light.png
+.. image:: _static/fan01.png
 
 
 
 - The `fan_single` function illustrates the probability density function (pdf) or the cumulative density function (cdf) of one forecast distribution
 
-.. image:: https://raw.githubusercontent.com/quantgirluk/fanchart/master/images/single_light.png
+.. image:: _static/fan04.png
 
 
-.. image:: https://raw.githubusercontent.com/quantgirluk/fanchart/master/images/single_light_cdf.png
-
+.. image:: _static/fan05.png
 
 For more details on the history of fan charts visit `Fan Charts <https://quantgirl.blog/fan-charts/>`_
 
@@ -63,14 +62,11 @@ Fanchart relies heavily on
 - ``matplotlib`` for creating visualisations
 
 
-
 Documentation
 -------------
 
-
 .. toctree::
    quick_start.rst
-#notebooks/Fanchart_v1_Demo
 
 
 Indices and tables
