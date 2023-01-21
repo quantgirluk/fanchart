@@ -25,13 +25,6 @@ For more details on the history of fan charts visit [Fan Charts](https://quantgi
 ## Quick Start
 This library provides two main functions
 
-| Function    | Parameters                            |
-|-------------|---------------------------------------|
-| fan _single | loc, sigma, gamma, probs, kind, color |
-| fan         | pars, probs, historic, color          |
-
-
-
 - The `fan` function illustrates the distribution of all the forecasts available; and it has the option to display the historical values for reference.
 
 ![](https://raw.githubusercontent.com/quantgirluk/fanchart/master/images/fan_light.png)
