@@ -1,0 +1,8 @@
+"""Version information."""
+__title__ = "fanchart"
+__description__ = "Library to create Fan Charts as introduced by the Bank of England in 1996."
+__url__ = "https://github.com/quantgirluk/fanchart"
+__version__ = "1.0.3"
+__author__ = "Dialid Santiago"
+__license__ = "MIT"
+__copyright__ = "Copyright 2020-2023 Dialid Santiago"
