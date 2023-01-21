@@ -5,3 +5,4 @@ sphinx-rtd-theme
 furo
 nbsphinx
 pandoc
+sphinx_copybutton
