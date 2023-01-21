@@ -69,9 +69,8 @@ Documentation
 
 
 .. toctree::
-   :maxdepth: 2
-
- notebooks/Fanchart_v1_Demo
+   quick_start.rst
+#notebooks/Fanchart_v1_Demo
 
 
 Indices and tables
