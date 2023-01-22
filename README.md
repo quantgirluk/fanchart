@@ -27,17 +27,82 @@ The BoE introduced the fan charts aiming to communicate a more accurate represen
 
 For more details on the history of fan charts visit [Fan Charts](https://quantgirl.blog/fan-charts/)
 
-## Quick Start
-This library provides two main functions
+
+## Installation
+
+
+Fanchart is available on [pypi](https://pypi.org/project/fanchart/) and can be
+installed as follows.
+
+
+```
+pip install fanchart
+```
+
+## Dependencies
+
+Fanchart relies heavily on
+
+- [``twopiece``](https://pypi.org/project/twopiece/)  for the implementation of the [Two-Piece normal](https://quantgirl.blog/two-piece-normal/) distribution
+
+- ``matplotlib`` for creating visualisations
+
+## Compatibility
+
+
+Aleatory is tested on Python versions 3.8, 3.9, and 3.10
+
+
+## Getting Started
+
+This library provides two main functions `fan` and `fan_single`. In order to be able to make our first fan charts with 
+these functions, we need to load some data via the functions.
+
+- ``load_boe_history()`` which loads the historical data for inflation (CPI)
+- ``load_boe_parameters()`` which loads the parameters for the quarterly projections
+
+```
+from fanchart import load_boe_history, load_boe_parameters
+
+history = load_boe_history()
+parameters = load_boe_parameters()
+```
+
+After this, we are ready to use our main functions.
 
 - The `fan` function illustrates the distribution of all the forecasts available; and it has the option to display the historical values for reference.
+
+```
+    from fanchart import fan
+
+    probs = [0.05, 0.20, 0.35, 0.65,0.80,  0.95]
+    fan(pars=parameters, probs=probs, historic=history[history.Date >= '2018'])
+```
+
 
 ![](https://raw.githubusercontent.com/quantgirluk/fanchart/master/docs/source/_static/fan01.png)
 
 
 - The `fan_single` function illustrates the pdf/cdf of one forecast distribution
 
+```
+    from fanchart import fan_single
+
+    probs = [0.05, 0.20, 0.35, 0.65,0.80,  0.95]
+    fan_single(loc=9.53, sigma=1.68, gamma=1.0, probs=probs, kind='pdf')
+
+```
+
 ![](https://raw.githubusercontent.com/quantgirluk/fanchart/master/docs/source/_static/fan04.png)
+
+```
+    from fanchart import fan_single
+
+    probs = [0.05, 0.20, 0.35, 0.65,0.80,  0.95]
+    fan_single(loc=9.53, sigma=1.68, gamma=1.0, probs=probs, kind='cdf')
+```
+
+
 
 ![](https://raw.githubusercontent.com/quantgirluk/fanchart/master/docs/source/_static/fan05.png)
 
