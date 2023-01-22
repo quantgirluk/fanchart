@@ -50,7 +50,7 @@ Fanchart relies heavily on
 ## Compatibility
 
 
-Aleatory is tested on Python versions 3.8, 3.9, and 3.10
+Fanchart is tested on Python versions 3.8, 3.9, and 3.10
 
 
 ## Getting Started
