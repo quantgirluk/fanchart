@@ -55,6 +55,9 @@ Fanchart is tested on Python versions 3.8, 3.9, and 3.10
 
 ## Getting Started
 
+ :exclamation: 📝 **Install the latest version of fanchart before starting.**                         
+
+
 This library provides two main functions `fan` and `fan_single`. In order to be able to make our first fan charts with 
 these functions, we need to load some data via the functions.
 
