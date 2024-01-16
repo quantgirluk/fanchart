@@ -24,9 +24,9 @@ aleatory = importlib.import_module("fanchart")
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'fanchart'
-copyright = '2023, Dialid Santiago'
+copyright = '2023-2024, Dialid Santiago'
 author = 'Dialid Santiago'
-release = '1.0.3'
+release = '1.1.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
